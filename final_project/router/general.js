@@ -34,11 +34,21 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  //Write your code here
-  res.send(JSON.stringify(books,null,4));
-  //return res.status(300).json({message: "Yet to be implemented"});
-});
+    //Write your code here
+    res.send(JSON.stringify(books,null,4));
+    //return res.status(300).json({message: "Yet to be implemented"});
+  });
 
+// Function to get the book list available in the shop
+function GetBooks() {
+    axios.get('http://localhost:5000/')
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.error('Error fetching books:', error)
+    })
+};
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
@@ -47,7 +57,17 @@ public_users.get('/isbn/:isbn',function (req, res) {
   res.send(JSON.stringify(books[isbn],null,4));
   //return res.status(300).json({message: "Yet to be implemented"});
  });
-  
+
+function GetBookByISBN(isbn) {
+    axios.get(`http://localhost:5000/isbn/${isbn}`)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.error('Error fetching books:', error)
+    })
+};
+
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
@@ -62,6 +82,16 @@ public_users.get('/author/:author',function (req, res) {
   //return res.status(300).json({message: "Yet to be implemented"});
 });
 
+function GetBookByAuthor(author) {
+    axios.get(`http://localhost:5000/author/${author}`)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.error('Error fetching books:', error)
+    })
+};
+
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
@@ -75,6 +105,16 @@ public_users.get('/title/:title',function (req, res) {
   res.send(JSON.stringify(result,null,4))
   //return res.status(300).json({message: "Yet to be implemented"});
 });
+
+function GetBookByTitle(title) {
+    axios.get(`http://localhost:5000/title/${title}`)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.error('Error fetching books:', error)
+    })
+};
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
